@@ -67,28 +67,28 @@ public class Polinomio {
 		bfInput.close();
 	}
 	
-	public double evaluarMSucesivas(double x){
-		double resultado = 0;
-		double valorTermino = 1;
-		
-		for(int termino = 0; termino<(grado + 1); termino++){
-			for(int exponente = (grado - termino); exponente > 0; exponente--){
-				valorTermino*=x;
-			}
-			//multiplica el producto por el coeficiente
-			resultado+=valorTermino*this.coeficientes[termino]; 
-			valorTermino=1;
-		}
-	return resultado;
-	}
+	public double evaluarMSucesivas (double x ) {
+        double respuesta = 0;
+        for(int i = 0; i < grado; i++){
+            double parcial = x;
+            for(int k = 0; k < (grado-i-1); k++){
+                parcial *= x;
+            }
+            respuesta += coeficientes[i] * parcial;
+        }
+        respuesta += coeficientes[grado];
+        return respuesta;
+    }
 	
 	public double evaluarRecursiva(double x){
-		double resultado = 0;
-		for (int i = 0; i < (grado+1); i++) {
-			if(this.coeficientes[i] != 0)
-				resultado+= this.coeficientes[i] * potencia(x,(grado-i));
-		}
-		return resultado;
+		double respuesta = 0;
+
+        for(int i = 0; i < grado; i++){
+            respuesta += coeficientes[i] * potencia(x,(grado-i));
+        }
+        respuesta += coeficientes[grado];
+
+        return respuesta;
 	}
 	
 	private double potencia(double x, int n){
@@ -97,32 +97,29 @@ public class Polinomio {
 	}
 	
 	public double evaluarRecursivaPar(double x){
-		double resultado = 0;
-		for (int i = 0; i < (grado+1); i++) {
-			if(this.coeficientes[i] != 0)
-				resultado+= this.coeficientes[i] * potenciaPar(x,(grado-i));
-		}
-		return resultado;
-	}
-	
-	private double potenciaPar(double x, int n){
-		if(n == 0) return 1;
-		if(n%2 != 0)
-			return x*potenciaPar(x,n-1);
-		return potenciaPar(x*x, n/2);
+		double respuesta = 0;
+
+        for(int i = 0; i < grado; i++){
+            if((coeficientes.length-i-1) % 2 == 0){
+                respuesta += coeficientes[i] * potencia(x*x,(coeficientes.length-i-1)/2);
+            } else {
+                respuesta += coeficientes[i] * potencia(x,(coeficientes.length-i-1));
+            }
+        }
+        respuesta += coeficientes[grado];
+
+        return respuesta;
 	}
 	
 	public double evaluarProgDinamica(double x){
 		int anterior = 1;
 		double resultado=this.coeficientes[this.grado];
 
-		//si es una polinomio de grado 0, devuelvo el termino independiente. Para que no me de error. 
 		if(this.grado == 0) 
 			return this.coeficientes[0]; 
 		
 		for (int i = 1; i < this.grado+1; i++) {
 			anterior*=x;
-			//Hago la cuenta de coeficiente mas chico con el vector que le corresponde.
 			resultado+= this.coeficientes[this.grado - i] * anterior;		
 		}
 		return resultado;
@@ -137,26 +134,34 @@ public class Polinomio {
 	}
 	
 	public double evaluarPow(double x){
-		double resultado = 0;
-		for (int i = 0; i < (grado+1); i++) {
-			if(this.coeficientes[i] != 0)
-				resultado+= this.coeficientes[i] * Math.pow(x,(grado-i));
-		}
-		return resultado;
+		double respuesta = 0;
+
+        for(int i = 0; i < coeficientes.length; i++){
+            respuesta += coeficientes[i] * Math.pow(x,(coeficientes.length-i-1));
+        }
+
+        return respuesta;
 	}
 	
-	///EL ALGORITMO DE HORNER HACE QUE, TENIENDO, POR EJEMPLO UN POLINOMIO X^3+2X^2+5X+4---> [(X+2)X+5]X+4
 	public double evaluarHorner(double x){     
-        double resultado = coeficientes[0];		///ACA TOMO EL COEFICIENTE MAS ALTO
-        for (int i = 1; i < this.coeficientes.length ; i++)
-            resultado = this.coeficientes[i] + (x * resultado);       ///a0*x+a1
-        return resultado;
+		double b[] = new double[coeficientes.length];
+        b[0] = coeficientes[0];
+        for(int i = 1; i <= grado; i++){
+            b[i] = coeficientes[i] + b[i-1]*x;
+        }
+
+        return b[grado];
     }
 
 	@Override
-	public String toString() {
-		return "Polinomio [coeficientes=" + Arrays.toString(coeficientes) + "]";
-	}
+    public String toString() {
+        String txt = "";
+        for(int i = 0; i < coeficientes.length; i++){
+                txt += coeficientes[i] + "x^" + (coeficientes.length-i-1) + " + ";
+        }
+        txt = txt.substring(0,txt.length()-3);
+        return txt;
+    }
 	
 	
 	

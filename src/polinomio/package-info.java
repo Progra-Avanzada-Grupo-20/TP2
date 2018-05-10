@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author Franco
- *
- */
-package polinomio;

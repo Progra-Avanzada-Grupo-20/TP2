@@ -67,6 +67,30 @@ public class BinomioDeNewton {
     	return (Matematica.combinatoria(this.n, k) * Math.pow(a, k) * Math.pow(b, this.n - k));
     }
     
+    public double calculoCoeficienteKConFactorialRecursivo(int k) {
+    	if (n == 0) return 1;
+    	if (k > n) return 0;
+    	return (Matematica.combinatoriaFactorialRecursivo(this.n, k) * Math.pow(a, k) * Math.pow(b, this.n - k));
+    }
+    
+    public double calculoCoeficienteKConFactorialDinamico(int k) {
+    	if (n == 0) return 1;
+    	if (k > n) return 0;
+    	return (Matematica.combinatoriaFactorialDinamico(this.n, k) * Math.pow(a, k) * Math.pow(b, this.n - k));
+    }
+    
+    public double calculoCoeficienteKRecursivo(int k) {
+    	if (n == 0) return 1;
+    	if (k > n) return 0;
+    	return (Matematica.combinatoriaRecursiva(this.n, k) * Math.pow(a, k) * Math.pow(b, this.n - k));
+    }
+    
+    public double calculoCoeficienteKDinamica(int k) {
+    	if (n == 0) return 1;
+    	if (k > n) return 0;
+    	return (Matematica.combinatoriaDinamicaConVector(this.n, k) * Math.pow(a, k) * Math.pow(b, this.n - k));
+    }
+    
     
 	public Polinomio formaPolinomica() {
 		double[] coeficientes = new double[this.n + 1];
