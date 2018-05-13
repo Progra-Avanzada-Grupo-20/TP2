@@ -90,13 +90,17 @@ public class MatematicaTests {
 	@Test
 	public void testCombinatoriaDinamicaConVector() {
 		Assert.assertEquals(1, Matematica.combinatoriaDinamicaConVector(6, 0), 0);
-		Assert.assertEquals(6, Matematica.combinatoriaDinamicaConVector(6, 1), 0);
 		Assert.assertEquals(15, Matematica.combinatoriaDinamicaConVector(6, 2), 0);
+		Assert.assertEquals(6, Matematica.combinatoriaDinamicaConVector(6, 1), 0);
 		Assert.assertEquals(20, Matematica.combinatoriaDinamicaConVector(6, 3), 0);
 		Assert.assertEquals(15, Matematica.combinatoriaDinamicaConVector(6, 4), 0);
 		Assert.assertEquals(6, Matematica.combinatoriaDinamicaConVector(6, 5), 0);
 		Assert.assertEquals(1, Matematica.combinatoriaDinamicaConVector(6, 6), 0);
 		Assert.assertEquals(210, Matematica.combinatoriaDinamicaConVector(10, 6), 0);
+		Assert.assertEquals(10, Matematica.combinatoriaDinamicaConVector(5, 2), 0);
+		Assert.assertEquals(5, Matematica.combinatoriaDinamicaConVector(5, 4), 0);
+		Assert.assertEquals(20, Matematica.combinatoriaDinamicaConVector(6, 3), 0);
+		Assert.assertEquals(5, Matematica.combinatoriaDinamicaConVector(5, 4), 0);
 	}
 
 }

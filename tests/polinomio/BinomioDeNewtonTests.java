@@ -5,7 +5,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import polinomio.BinomioDeNewton;
-import polinomio.Matematica;
 import polinomio.Polinomio;
 
 
@@ -101,12 +100,12 @@ public class BinomioDeNewtonTests {
 
 	@Test
 	public void testTartaglia() {
-		int[][] tartaglia = { { 1}, { 1, 1}, { 1, 2, 1}, { 1, 3, 3, 1},	{ 1, 4, 6, 4, 1 }, { 1, 5, 10, 10, 5, 1 }  };
+		double[][] tartaglia = { { 1}, { 1, 1}, { 1, 2, 1}, { 1, 3, 3, 1},	{ 1, 4, 6, 4, 1 }, { 1, 5, 10, 10, 5, 1 }  };
 		BinomioDeNewton binomio = new BinomioDeNewton();
-		int[][] miTartaglia = binomio.trianguloTartaglia(5);
+		double[][] miTartaglia = binomio.trianguloTartaglia(5);
 		for (int i = 0; i < tartaglia.length; i++) {
 			for (int j = 0; j < tartaglia[i].length; j++) {
-				Assert.assertEquals(tartaglia[i][j], miTartaglia[i][j]);
+				Assert.assertEquals(tartaglia[i][j], miTartaglia[i][j], 0);
 			}
 		}
 	}
@@ -114,8 +113,8 @@ public class BinomioDeNewtonTests {
 	@Test
 	public void testConstructor() {
 		BinomioDeNewton binomio = new BinomioDeNewton(2, 1, 2);
-		Assert.assertEquals(2,binomio.getA());
-		Assert.assertEquals(1,binomio.getB());
+		Assert.assertEquals(2,binomio.getA(), 0);
+		Assert.assertEquals(1,binomio.getB(), 0);
 		Assert.assertEquals(2,binomio.getN());
 	}
 
@@ -125,7 +124,7 @@ public class BinomioDeNewtonTests {
 		Polinomio p = binomio.formaPolinomica();
 		double[] coeficientes = { 4, 4, 1 };
 		Polinomio q = new Polinomio(coeficientes);
-		Assert.assertEquals(p.toString(), q.toString());
+		Assert.assertEquals(q.toString(), p.toString());
 	}
 
 	@Test
@@ -134,7 +133,7 @@ public class BinomioDeNewtonTests {
 		double[] coeficientes = { 1, 2, 1 };
 		Polinomio q = new Polinomio(coeficientes);
 		Polinomio p = binomio.formaPolinomicaConTartaglia();
-		Assert.assertEquals(p.toString(), q.toString());
+		Assert.assertEquals(q.toString(),p.toString());
 	}
 	
 	@Test
@@ -143,7 +142,7 @@ public class BinomioDeNewtonTests {
 		double[] coeficientes = { 1, 3, 3, 1};
 		Polinomio q = new Polinomio(coeficientes);
 		Polinomio p = binomio.formaPolinomicaConTartaglia();
-		Assert.assertEquals(p.toString(), q.toString());
+		Assert.assertEquals(q.toString(), p.toString());
 	}
 	
 	@Test
@@ -152,7 +151,7 @@ public class BinomioDeNewtonTests {
 		double[] coeficientes = { 1, 4, 6, 4, 1};
 		Polinomio q = new Polinomio(coeficientes);
 		Polinomio p = binomio.formaPolinomicaConTartaglia();
-		Assert.assertEquals(p.toString(), q.toString());
+		Assert.assertEquals(q.toString(), p.toString());
 	}
 
 }

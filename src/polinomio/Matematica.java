@@ -3,7 +3,7 @@ package polinomio;
 public class Matematica {
 
 	private static double[] tablaFactorial = new double[100];
-	private static double[] tablaCombinatoria = new double[100];
+	private static double[][] tablaCombinatoria = new double[100][150];
 	
     public static double combinatoria(int m, int n){
     	return factorial(m) / (factorial(m - n) * factorial(n));
@@ -24,16 +24,22 @@ public class Matematica {
 	}
 
 	public static double combinatoriaDinamicaConVector(int m, int n) { // Complejidad: O(m^2)
+		tablaCombinatoria[0][0] = 1;
+		tablaCombinatoria[1][0] = 1;
+		tablaCombinatoria[1][1] = 1;
 		if(n == 0 || m == n) return 1;
 		if(m == 0) return 0;
-		// Utilizo triángulo de Tartaglia para resolver.
-		for (int i = 0; i <= m; i++){
-			tablaCombinatoria[i] = 1;
-			for(int j = i - 1; j > 0; j--){
-				tablaCombinatoria[j] += tablaCombinatoria[j-1];
-			}
-		}
-		return tablaCombinatoria[n];
+		if(tablaCombinatoria[m][n] != 0.0) return tablaCombinatoria[m][n];
+        for (int i = 2; i <= m; i++) { 
+            for (int j = 0; j < i + 1; j++) { 
+                if (j == 0 || j == i) { 
+                	tablaCombinatoria[i][j] = 1;
+                } else { 
+                	tablaCombinatoria[i][j] = (tablaCombinatoria[i - 1][j - 1] + tablaCombinatoria[i - 1][j]); 
+                } 
+            }
+        } 
+		return tablaCombinatoria[m][n];
 	}
 	
     public static double factorial(int n) {
@@ -60,5 +66,5 @@ public class Matematica {
     	}
     	return tablaFactorial[n];
     }
-	
+
 }

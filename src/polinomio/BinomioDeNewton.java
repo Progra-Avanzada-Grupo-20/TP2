@@ -3,37 +3,37 @@ package polinomio;
 
 public class BinomioDeNewton {
 	
-	private int[][] tartaglia;
-	private int a;
-	private int b;
-	private int n;
+	private double[][] tartaglia;
+	private double a;
+	private double b;
+	private int grado;
 	
-	public BinomioDeNewton(int a, int b, int n) {
+	public BinomioDeNewton(double a, double b, int n) {
 		this.a = a;
 		this.b = b;
-		this.n = n;
+		this.grado = n;
 	}
 	
 	public BinomioDeNewton() {
 	}
 	
-    public int getA() {
+    public double getA() {
 		return a;
 	}
 
-	public int getB() {
+	public double getB() {
 		return b;
 	}
 
 	public int getN() {
-		return n;
+		return grado;
 	}
 
-	public int[][] trianguloTartaglia(int n) { 
-        tartaglia = new int[n+1][]; 
+	public double[][] trianguloTartaglia(int n) { 
+        tartaglia = new double[n+1][]; 
         //Añado a cada fila, el array correspondiente con el numero de numeros que tendra 
         for (int i = 1; i <= n+1; i++) { 
-            tartaglia[i - 1] = new int[i]; 
+            tartaglia[i - 1] = new double[i]; 
         } 
         rellenar();
         return tartaglia;
@@ -62,49 +62,49 @@ public class BinomioDeNewton {
     }
     
     public double calculoCoeficienteK(int k) {
-    	if (n == 0) return 1;
-    	if (k > n) return 0;
-    	return (Matematica.combinatoria(this.n, k) * Math.pow(a, k) * Math.pow(b, this.n - k));
+    	if (grado == 0) return 1;
+    	if (k > grado) return 0;
+    	return (Matematica.combinatoria(this.grado, k) * Math.pow(a, k) * Math.pow(b, this.grado - k));
     }
     
     public double calculoCoeficienteKConFactorialRecursivo(int k) {
-    	if (n == 0) return 1;
-    	if (k > n) return 0;
-    	return (Matematica.combinatoriaFactorialRecursivo(this.n, k) * Math.pow(a, k) * Math.pow(b, this.n - k));
+    	if (grado == 0) return 1;
+    	if (k > grado) return 0;
+    	return (Matematica.combinatoriaFactorialRecursivo(this.grado, k) * Math.pow(a, k) * Math.pow(b, this.grado - k));
     }
     
     public double calculoCoeficienteKConFactorialDinamico(int k) {
-    	if (n == 0) return 1;
-    	if (k > n) return 0;
-    	return (Matematica.combinatoriaFactorialDinamico(this.n, k) * Math.pow(a, k) * Math.pow(b, this.n - k));
+    	if (grado == 0) return 1;
+    	if (k > grado) return 0;
+    	return (Matematica.combinatoriaFactorialDinamico(this.grado, k) * Math.pow(a, k) * Math.pow(b, this.grado - k));
     }
     
     public double calculoCoeficienteKRecursivo(int k) {
-    	if (n == 0) return 1;
-    	if (k > n) return 0;
-    	return (Matematica.combinatoriaRecursiva(this.n, k) * Math.pow(a, k) * Math.pow(b, this.n - k));
+    	if (grado == 0) return 1;
+    	if (k > grado) return 0;
+    	return (Matematica.combinatoriaRecursiva(this.grado, k) * Math.pow(a, k) * Math.pow(b, this.grado - k));
     }
     
     public double calculoCoeficienteKDinamica(int k) {
-    	if (n == 0) return 1;
-    	if (k > n) return 0;
-    	return (Matematica.combinatoriaDinamicaConVector(this.n, k) * Math.pow(a, k) * Math.pow(b, this.n - k));
+    	if (grado == 0) return 1;
+    	if (k > grado) return 0;
+    	return (Matematica.combinatoriaDinamicaConVector(this.grado, k) * Math.pow(a, k) * Math.pow(b, this.grado - k));
     }
     
     
 	public Polinomio formaPolinomica() {
-		double[] coeficientes = new double[this.n + 1];
+		double[] coeficientes = new double[this.grado + 1];
 		for (int i = 0; i < coeficientes.length; i++) {
-			coeficientes[i] = calculoCoeficienteK(n - i);
+			coeficientes[i] = calculoCoeficienteK(grado - i);
 		}
 		return new Polinomio(coeficientes);
 	}
 	
 	public Polinomio formaPolinomicaConTartaglia() {
-		trianguloTartaglia(this.n);
-		double[] coeficientes = new double[n + 1];
+		trianguloTartaglia(this.grado);
+		double[] coeficientes = new double[grado + 1];
 		for (int i = 0; i < coeficientes.length; i++) {
-			coeficientes[i] = this.tartaglia[n][i];
+			coeficientes[i] = this.tartaglia[grado][i];
 		}
 		return new Polinomio(coeficientes);
 	}
