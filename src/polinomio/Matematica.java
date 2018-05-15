@@ -4,6 +4,7 @@ public class Matematica {
 
 	private static double[] tablaFactorial = new double[100];
 	private static double[][] tablaCombinatoria = new double[100][150];
+	private static int cantidad_filas = 1;
 	
     public static double combinatoria(int m, int n){
     	return factorial(m) / (factorial(m - n) * factorial(n));
@@ -30,15 +31,19 @@ public class Matematica {
 		if(n == 0 || m == n) return 1;
 		if(m == 0) return 0;
 		if(tablaCombinatoria[m][n] != 0.0) return tablaCombinatoria[m][n];
-        for (int i = 2; i <= m; i++) { 
+		int filas = cantidad_filas;
+        for (int i = filas + 1; i <= m; i++) { 
             for (int j = 0; j < i + 1; j++) { 
                 if (j == 0 || j == i) { 
                 	tablaCombinatoria[i][j] = 1;
                 } else { 
-                	tablaCombinatoria[i][j] = (tablaCombinatoria[i - 1][j - 1] + tablaCombinatoria[i - 1][j]); 
-                } 
+                	tablaCombinatoria[i][j] = (tablaCombinatoria[i - 1][j - 1] + tablaCombinatoria[i - 1][j]);
+                }
             }
+            System.out.println("Calculo en k = " + i);
+            cantidad_filas = i;
         } 
+        System.out.println("retorno: " + tablaCombinatoria[m][n]);
 		return tablaCombinatoria[m][n];
 	}
 	
